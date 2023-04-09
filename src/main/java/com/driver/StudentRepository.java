@@ -34,8 +34,8 @@ public class StudentRepository {
             teacherStudentDb.put(teacherName, temp);
 
             // to increase student count in teacher
-            Teacher teacher = teacherDb.get(teacherName);
-            teacher.setNumberOfStudents(temp.size());
+//            Teacher teacher = teacherDb.get(teacherName);
+//            teacher.setNumberOfStudents(temp.size());
         }
     }
 

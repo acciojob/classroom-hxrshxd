@@ -23,20 +23,20 @@ public class StudentRepository {
     }
 
     public void addStudentTeacherPair(String teacherName, String studentName) {
-        if (studentDb.containsKey(studentName) && teacherDb.containsKey(teacherName)) { // chech if teacher and student are in their respective db
+//        if (studentDb.containsKey(studentName) && teacherDb.containsKey(teacherName)) { // chech if teacher and student are in their respective db
 
-            List<String> temp = new ArrayList<>(); // create new list incase their is no existing student teacher pair in db
-            if (teacherStudentDb.containsKey(teacherName)) { // their is a pair in db
-                temp = teacherStudentDb.get(teacherName); // get student list of that teacher
+//            List<String> temp = new ArrayList<>(); // create new list incase their is no existing student teacher pair in db
+            if (!teacherStudentDb.containsKey(teacherName)) { // their is a pair in db
+                teacherStudentDb.put(teacherName, new ArrayList<>()); // get student list of that teacher
             }
-            temp.add(studentName); // add new teacher
-
-            teacherStudentDb.put(teacherName, temp);
+//            temp.add(studentName); // add new teacher
+            teacherStudentDb.get(teacherName).add(studentName);
+//            teacherStudentDb.put(teacherName, temp);
 
             // to increase student count in teacher
 //            Teacher teacher = teacherDb.get(teacherName);
 //            teacher.setNumberOfStudents(temp.size());
-        }
+//        }
     }
 
     public Student getStudentByName(String studentName) {
@@ -48,13 +48,13 @@ public class StudentRepository {
     }
 
     public List<String> getStudentsByTeacherName(String teacherName) { // get list of students under teacher
-        List<String> temp = new ArrayList<>();
+//        List<String> temp = new ArrayList<>();
+//
+//        if (teacherStudentDb.containsKey(teacherName)) { // check if teacher has any student assign
+//            temp = teacherStudentDb.get(teacherName);
+//        }
 
-        if (teacherStudentDb.containsKey(teacherName)) { // check if teacher has any student assign
-            temp = teacherStudentDb.get(teacherName);
-        }
-
-        return temp;
+        return teacherStudentDb.get(teacherName);
     }
 
     public List<String> getAllStudentsName() { // get all student's name list
@@ -78,8 +78,8 @@ public class StudentRepository {
     }
 
     public void deleteTeacher(String teacherName) {
-        if (teacherDb.containsKey(teacherName)) teacherDb.remove(teacherName);
-        if (teacherStudentDb.containsKey(teacherName)) teacherStudentDb.remove(teacherName);
+        teacherDb.remove(teacherName);
+        teacherStudentDb.remove(teacherName);
     }
 
     public void deleteStudent(String studentName) {
